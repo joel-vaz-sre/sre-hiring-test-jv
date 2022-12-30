@@ -1,0 +1,12 @@
+name: AWS Cloud Deployment Framework
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+permissions:
+  contents: read
+
+jobs:
