@@ -62,3 +62,49 @@ resource "aws_ecr_repository" "ecr_lambda_package" {
         Purpose        = "image_resize"
     }
 }
+
+resource "aws_iam_role" "iam_for_lambda" {
+    name = "iam-for-lambda"
+
+    assume_role_policy = <<EOF
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Action": "sts:AssumeRole",
+            "Principal": {
+                "Service": "lambda.amazonaws.com"
+            },
+            "Effect": "Allow",
+            "Sid": ""
+        }
+    ]
+}
+EOF
+}
+
+resource "aws_lambda_function" "aircall_image_resizer" {
+    # If the file is not in the current working directory you will need to include a
+    # path.module in the filename.
+    image_uri     = var.imageURI
+    package_type  = "Image"
+    function_name = "aircall-image-resizer"
+    role          = aws_iam_role.iam_for_lambda.arn
+    description   = "Given an image, returns the image resized on an S3 bucket"
+    handler       = "app.lambdaHandler"
+    publish       = true
+
+    runtime = "nodejs14.x"
+
+    environment {
+        variables = {
+            S3_BUCKET = "aircall-image-resize-bucket"
+        }
+    }
+
+    tags = {
+        Project        = "Aircall Hiring"
+        Environment    = "Dev"
+        Purpose        = "image_resize"
+    }
+}
