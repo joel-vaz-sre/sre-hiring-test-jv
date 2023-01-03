@@ -91,11 +91,7 @@ resource "aws_lambda_function" "aircall_image_resizer" {
     function_name = "aircall-image-resizer"
     role          = aws_iam_role.iam_for_lambda.arn
     description   = "Given an image, returns the image resized on an S3 bucket"
-    handler       = "app.lambdaHandler"
     publish       = true
-
-    runtime = "nodejs14.x"
-
     environment {
         variables = {
             S3_BUCKET = "aircall-image-resize-bucket"
