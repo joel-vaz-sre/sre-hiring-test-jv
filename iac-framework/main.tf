@@ -20,6 +20,11 @@ resource "aws_s3_bucket" "terraform_state" {
             }
         }
     }
+    tags = {
+        Project        = "Aircall Hiring"
+        Environment    = "Dev"
+        Purpose        = "image_resize"
+    }
 }
 
 resource "aws_dynamodb_table" "terraform_locks" {
@@ -35,6 +40,21 @@ resource "aws_dynamodb_table" "terraform_locks" {
 
 resource "aws_s3_bucket" "image_resize" {
     bucket = "aircall-image-resize-bucket"
+
+    tags = {
+        Project        = "Aircall Hiring"
+        Environment    = "Dev"
+        Purpose        = "image_resize"
+    }
+}
+
+resource "aws_ecr_repository" "ecr_lambda_package" {
+    name                 = "aircall-ecr-lambda"
+    image_tag_mutability = "MUTABLE"
+
+    image_scanning_configuration {
+        scan_on_push = true
+    }
 
     tags = {
         Project        = "Aircall Hiring"

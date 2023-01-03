@@ -11,6 +11,7 @@ Looking at the challenge the following tasks became obvious:
         - One IAM user member of an admin group (This was super permissive but I'm the only planned user for this cloud space);
         - One service account user for github actions with pipeline access and at least the following resources:
         - AWS Lambda;
+          - Need to have the docker image on a registry accessible by the aws lambda (e.g. ECR (elastic container registry))
         - AWS S3 bucket;
         - Also essential to ensure this user secrets were not exposed during CI/CD process;
 
@@ -20,13 +21,13 @@ Looking at the challenge the following tasks became obvious:
         - Would be mice to have some kind of scanning for the terraform code (Explore Snyk integration with Github Actions);
 
     - Provision the basic infrastructure and remember the S3 bucket for the terraform state file.
-        - 1 bucket S3 for terraform state file
+        - 1 bucket S3 for terraform state file / dynamoDB configuration for terraform lock state
         - 1 bucket S3 for the image storage
-        - 1 Lambda function (?)
+        - 1 Lambda function
+        - 1 ECR for the docker image of the function (package)
         - IAM / Access policies / Secure communication between github and AWS
 
     - Containerize the application using docker and DockerHub;
-        - Explore what needs to be performed for this step;
 
     - Deploy locally the lambda function to discover what is needed on cloud space;
         - In terms of networking especially;
