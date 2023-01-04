@@ -4,7 +4,7 @@ COPY serverless/*.js serverless/package*.json  ${LAMBDA_TASK_ROOT}/
 
 RUN npm install
 
-RUN npm audit fix
+#RUN npm audit fix
 
 ENV S3_BUCKET=aircall-image-resize-bucket
 

@@ -1,5 +1,28 @@
+resource "aws_iam_role" "iam_for_apiGateway" {
+    name = "iam-for-apiGateway"
+
+    assume_role_policy = <<EOF
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Action": "sts:AssumeRole",
+            "Principal": {
+                "Service": "apigateway.amazonaws.com"
+            },
+            "Effect": "Allow",
+            "Sid": ""
+        }
+    ]
+}
+EOF
+}
+
 resource "aws_api_gateway_rest_api" "resize_RestAPI" {
-    name = "aircall-resize-restAPI"
+    name               = "aircall-resize-restAPI"
+    binary_media_types = [
+        "multipart/form-data"
+    ]
 }
 
 resource "aws_api_gateway_resource" "resize_api_resource" {

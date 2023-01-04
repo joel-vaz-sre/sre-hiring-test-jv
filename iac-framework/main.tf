@@ -48,6 +48,16 @@ resource "aws_s3_bucket" "image_resize" {
     }
 }
 
+resource "aws_s3_bucket" "lambda_logs_bucket" {
+    bucket = "aircall-image-resizer-logs-bucket"
+
+    tags = {
+        Project        = "Aircall Hiring"
+        Environment    = "Dev"
+        Purpose        = "image_resize"
+    }
+}
+
 resource "aws_ecr_repository" "ecr_lambda_package" {
     name                 = "aircall-ecr-lambda"
     image_tag_mutability = "MUTABLE"
@@ -92,6 +102,7 @@ resource "aws_lambda_function" "aircall_image_resizer" {
     role          = aws_iam_role.iam_for_lambda.arn
     description   = "Given an image, returns the image resized on an S3 bucket"
     publish       = true
+    timeout       = 10
     environment {
         variables = {
             S3_BUCKET = "aircall-image-resize-bucket"
@@ -103,4 +114,11 @@ resource "aws_lambda_function" "aircall_image_resizer" {
         Environment    = "Dev"
         Purpose        = "image_resize"
     }
+}
+
+resource "aws_lambda_permission" "aircall_resize_lambda_permission" {
+    function_name = aws_lambda_function.aircall_image_resizer.function_name
+    action        = "lambda:InvokeFunction"
+    statement_id  = "AllowExecutionFromAPIGateway"
+    principal     = "apigateway.amazonaws.com"
 }
