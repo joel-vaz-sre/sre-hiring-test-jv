@@ -20,6 +20,7 @@ EOF
 
 resource "aws_api_gateway_rest_api" "resize_RestAPI" {
     name               = "aircall-resize-restAPI"
+    description = "API Gateway to expose aircall image resizer"
     binary_media_types = [
         "multipart/form-data"
     ]
@@ -39,12 +40,13 @@ resource "aws_api_gateway_method" "resize_post_request" {
 }
 
 resource "aws_api_gateway_integration" "resize_post_integration" {
-    http_method = aws_api_gateway_method.resize_post_request.http_method
-    resource_id = aws_api_gateway_resource.resize_api_resource.id
-    rest_api_id = aws_api_gateway_rest_api.resize_RestAPI.id
+    http_method             = aws_api_gateway_method.resize_post_request.http_method
+    resource_id             = aws_api_gateway_resource.resize_api_resource.id
+    rest_api_id             = aws_api_gateway_rest_api.resize_RestAPI.id
     integration_http_method = "POST"
-    type        = "AWS_PROXY"
-    uri         = aws_lambda_function.aircall_image_resizer.invoke_arn
+    type                    = "AWS_PROXY"
+    uri                     = aws_lambda_function.aircall_image_resizer.invoke_arn
+    content_handling        = "CONVERT_TO_BINARY"
 }
 
 resource "aws_api_gateway_deployment" "resize_deployment" {
