@@ -1,16 +1,11 @@
 provider "aws" {
     region = "us-east-1"
 }
-
 resource "aws_s3_bucket" "terraform_state" {
     bucket = "terraform-state-aircall"
 
     lifecycle {
         prevent_destroy = true
-    }
-
-    versioning {
-        enabled = true
     }
 
     server_side_encryption_configuration {
@@ -24,6 +19,13 @@ resource "aws_s3_bucket" "terraform_state" {
         Project        = "Aircall Hiring"
         Environment    = "Dev"
         Purpose        = "image_resize"
+    }
+}
+
+resource "aws_s3_bucket_versioning" "terraform_state_versioning" {
+    bucket = aws_s3_bucket.terraform_state.id
+    versioning_configuration {
+        status = "Enabled"
     }
 }
 
@@ -56,6 +58,35 @@ resource "aws_s3_bucket" "lambda_logs_bucket" {
         Environment    = "Dev"
         Purpose        = "image_resize"
     }
+}
+
+resource "aws_s3_bucket_acl" "example_bucket_acl" {
+    bucket = aws_s3_bucket.lambda_logs_bucket.id
+    acl    = "public-read"
+}
+
+resource "aws_s3_bucket_policy" "policy_for_s3_logs" {
+    bucket = "aircall-image-resizer-logs-bucket"
+
+    policy = <<EOF
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Action": "s3:GetBucketAcl",
+            "Effect": "Allow",
+            "Resource": "arn:aws:s3:::aircall-image-resizer-logs-bucket",
+            "Principal": { "Service": "logs.us-east-1.amazonaws.com" }
+        },
+        {
+            "Action": "s3:PutObject" ,
+            "Effect": "Allow",
+            "Resource": "arn:aws:s3:::aircall-image-resizer-logs-bucket/*",
+            "Principal": { "Service": "logs.us-east-1.amazonaws.com" }
+        }
+    ]
+}
+EOF
 }
 
 resource "aws_ecr_repository" "ecr_lambda_package" {

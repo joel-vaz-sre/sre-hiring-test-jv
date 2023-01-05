@@ -1,12 +1,58 @@
-name: AWS Cloud Deployment Framework
+name: Aircall Image Resize CI/CD
 
-on:
-  push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
-
-permissions:
-  contents: read
+#on:
+#  push:
+#    branches: [ master ]
+#  pull_request:
+#    branches: [ master ]
 
 jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Docker Build
+      run: docker build . --file Dockerfile --tag latest
+  
+  test:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Unit Tests
+      shell: bash
+      run: |
+        echo "Product Development Unit Tests"
+    - name: Integration Tests
+      shell: bash
+      run: |
+        echo "Product Development Integration Tests"
+
+  deploy:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        role-to-assume: arn:aws:iam::${{ secrets.AWS_ID }}:role/${{ secrets.github-actions-role }}
+        aws-region: us-east-1
+
+    - name: Continuos Delivery
+      shell: bash
+      run: |
+        echo "Deployment Stage"
+        cd ..
+        sh cicd/docker.sh ${AWS_ID} ${REGION} ${APPLICATION_NAME}
+      env:
+          #AWS_ID: ${{ secrets.AWS_ID }} -> Change
+          AWS_ID: 321759709080
+          REGION: us-east-1
+          APPLICATION_NAME: aircall-ecr-lambda

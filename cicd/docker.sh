@@ -6,11 +6,9 @@
 ####
 
 #### THIS VARS NEED TO BE ON GIT in order to be used on the pipeline
-export AWS_ID=321759709080
-export REGION=us-east-1
-export APPLICATION_NAME=aircall-ecr-lambda
-#export AWS_ID=$1
-#export REGION=$2
+export AWS_ID=$1
+export REGION=$2
+export APPLICATION_NAME=$3
 
 echo "Logging into ECR"
 aws ecr get-login-password --region $REGION | docker login --username AWS --password-stdin $AWS_ID.dkr.ecr.$REGION.amazonaws.com

@@ -26,8 +26,6 @@ The provided code is working.
 
 It seems that our intern was using something called Lambda. Don't know what is it.
 
-
-
 ## What we want ?
 Could you please take this code, and deploy it on AWS in a cool way?
 
