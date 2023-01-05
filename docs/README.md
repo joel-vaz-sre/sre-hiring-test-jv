@@ -13,11 +13,11 @@ Endpoint: https://x6e08g4sx2.execute-api.us-east-1.amazonaws.com/resize/image
 
 Curl command (from root folder):
 '''
-curl -X POST 'https://x6e08g4sx2.execute-api.us-east-1.amazonaws.com/resize/image' --form 'file=@image-test/Aircall.jpg' --form 's3Key=Aircall_resized.jpg'
+curl -X POST 'https://x6e08g4sx2.execute-api.us-east-1.amazonaws.com/resize/image' --form 'file=@image-test/aircall_large.jpg' --form 's3Key=Aircall_resized.jpg'
 '''
 
 Output S3 Image URL test: https://aircall-image-resize-bucket.s3.amazonaws.com/Aircall_resized.jpg
-Output S3 Image URL: https://aircall-image-resize-bucket.s3.amazonaws.com/${Aircall_resized.jpg}
+Output S3 Image URL: https://aircall-image-resize-bucket.s3.amazonaws.com/${s3Key}
 
 Public Repository: ![Github](https://github.com/joel-vaz-sre/sre-hiring-test-jv)
 

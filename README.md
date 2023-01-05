@@ -38,7 +38,7 @@ You can also make some diagrams if needed.
 Technically speaking, we need to get:
 
 - Application URL (https://x6e08g4sx2.execute-api.us-east-1.amazonaws.com/resize/image)
-- URL of the resized images (s3 presigned URL [todo])
+- URL of the resized images (https://aircall-image-resize-bucket.s3.amazonaws.com)
 - GitHub repo (https://github.com/joel-vaz-sre/sre-hiring-test-jv)
 
 ## Good to know
