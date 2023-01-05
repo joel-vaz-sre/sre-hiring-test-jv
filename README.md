@@ -7,9 +7,9 @@ __Feel free to apply! Drop us a line with your Linkedin/Github/Twitter/AnySocial
 
 ## Summary
 
-An intern in our team has developped an application to resize images. It's working fine.
+An intern in our team has developed an application to resize images. It's working fine.
 
-Unfortunatly, he left the company and we have no documentation or no insights at all about
+Unfortunately, he left the company and we have no documentation or no insights at all about
 what he did.
 
 We just have the code.
@@ -37,9 +37,9 @@ You can also make some diagrams if needed.
 
 Technically speaking, we need to get:
 
-- Application URL
-- URL of the resized images
-- GitHub repo
+- Application URL (https://x6e08g4sx2.execute-api.us-east-1.amazonaws.com/resize/image)
+- URL of the resized images (s3 presigned URL [todo])
+- GitHub repo (https://github.com/joel-vaz-sre/sre-hiring-test-jv)
 
 ## Good to know
 
@@ -48,10 +48,10 @@ Technically speaking, we need to get:
 
 ## Nice to have
 
-- logs
-- tracing
-- deployment framework
-- CI/CD
-- auth
+- logs (CloudWatch read documentation on docs/Logging_Monitoring.md)
+- tracing (CloudWatch - example in docs/printscreens)
+- deployment framework (.github via github actions and cicd folder, landing zone created via terraform on automated pipeline)
+- CI/CD (.github via github actions)
+- auth (github uses a iam role for programmatic limited access, no auth was provided for the API endpoints)
 
 Good luck !

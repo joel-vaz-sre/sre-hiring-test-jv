@@ -22,7 +22,8 @@ Looking at the challenge the following tasks became obvious:
 
     - Provision the basic infrastructure and remember the S3 bucket for the terraform state file.
         - 1 bucket S3 for terraform state file / dynamoDB configuration for terraform lock state
-        - 1 bucket S3 for the image storage
+        - 1 bucket S3 for the image storage (with pre-signed URL for external access??)
+        - 1 bucket S3 to provide log outputs from cloudwatch (with pre-signed URL for external access??)
         - 1 Lambda function
         - 1 ECR for the docker image of the function (package)
         - 1 API Gateway to expose application

@@ -9,6 +9,8 @@
 export AWS_ID=321759709080
 export REGION=us-east-1
 export APPLICATION_NAME=aircall-ecr-lambda
+#export AWS_ID=$1
+#export REGION=$2
 
 echo "Logging into ECR"
 aws ecr get-login-password --region $REGION | docker login --username AWS --password-stdin $AWS_ID.dkr.ecr.$REGION.amazonaws.com
