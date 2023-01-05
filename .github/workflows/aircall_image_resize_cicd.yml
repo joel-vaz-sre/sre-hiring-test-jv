@@ -1,10 +1,10 @@
 name: Aircall Image Resize CI/CD
 
-#on:
+on:
 #  push:
 #    branches: [ master ]
-#  pull_request:
-#    branches: [ master ]
+  pull_request:
+    branches: [ master ]
 
 jobs:
 
