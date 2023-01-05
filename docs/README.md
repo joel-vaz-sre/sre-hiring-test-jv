@@ -3,9 +3,9 @@
 This folder has the documentation needed to describe the cloud architecture, features and processes for the Image resize application using AWS.
 
 ## Solution Diagram
-Bellow is a diagram of the solution for the given problem: 
+Bellow is a diagram of the solution for the given problem:
 
-[todo]
+![Infrastructure Diagram](diagrams/infrastructure.png "Infrastructure Diagram")
 
 ## How to run
 
@@ -25,7 +25,7 @@ Public Repository: ![Github](https://github.com/joel-vaz-sre/sre-hiring-test-jv)
 
 A screenshot of the postman POST api request using an image can be seen bellow with the expected return code 200.
 
-![Postman API Test](/printscreens/postman_test_ok.png "Postman Return ok - code 200")
+![Postman API Test](printscreens/postman_test_ok.png "Postman Return ok - code 200")
 
 ## Documentation Provided:
 
