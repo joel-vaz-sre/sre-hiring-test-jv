@@ -1,8 +1,8 @@
 name: Aircall Image Resize CI/CD
 
 on:
-#  push:
-#    branches: [ master ]
+  push:
+    branches: [ master ]
   pull_request:
     branches: [ master ]
 
@@ -42,8 +42,10 @@ jobs:
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
-        role-to-assume: arn:aws:iam::${{ secrets.AWS_ID }}:role/${{ secrets.github-actions-role }}
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: us-east-1
+        role-to-assume: arn:aws:iam::${{ secrets.AWS_ID }}:role/${{ secrets.AWS_GH_USER }}
 
     - name: Continuos Delivery
       shell: bash
@@ -52,7 +54,6 @@ jobs:
         cd ..
         sh cicd/docker.sh ${AWS_ID} ${REGION} ${APPLICATION_NAME}
       env:
-          #AWS_ID: ${{ secrets.AWS_ID }} -> Change
-          AWS_ID: 321759709080
+          AWS_ID: ${{ secrets.AWS_ID }}
           REGION: us-east-1
           APPLICATION_NAME: aircall-ecr-lambda
