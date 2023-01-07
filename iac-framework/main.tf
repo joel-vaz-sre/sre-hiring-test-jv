@@ -50,6 +50,25 @@ resource "aws_s3_bucket" "image_resize" {
   }
 }
 
+resource "aws_s3_bucket" "cloud_formation_bucket" {
+  bucket = "aircall-cloud-formation-bucket"
+
+  tags = {
+    Project     = "Aircall Hiring"
+    Environment = "Dev"
+    Purpose     = "image_resize"
+  }
+  acl    = "public-read"
+}
+
+resource "aws_s3_bucket_versioning" "cloud_formation_versioning" {
+  bucket = aws_s3_bucket.cloudFormation_bucket.id
+  versioning_configuration {
+    status = "Enabled"
+  }
+}
+
+
 resource "aws_s3_bucket" "lambda_logs_bucket" {
   bucket = "aircall-image-resizer-logs-bucket"
 
