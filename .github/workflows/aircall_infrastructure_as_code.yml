@@ -68,4 +68,4 @@ jobs:
           echo "Applying Cloud formation!"
           cd .. 
           cd iac-framework/cloudFormation/IAM-Role/
-          aws cloudformation deploy --template-file githubRole.yml --stack-name github-role-setup --capabilities CAPABILITY_IAM --capabilities CAPABILITY_NAMED_IAM --on-failure DO_NOTHING
+          aws cloudformation deploy --template-file githubRole.yml --stack-name github-role-setup --capabilities CAPABILITY_IAM --capabilities CAPABILITY_NAMED_IAM --disable-rollback
