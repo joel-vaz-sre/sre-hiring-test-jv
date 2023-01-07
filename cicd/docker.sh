@@ -1,5 +1,7 @@
 ####
 ##
+#!/bin/sh
+
 ##  This shell script uploads the docker image of the Application into the AWS ECR (Elastic Container Registry)
 ##  Also adds the correct TAG to the docker image
 ##

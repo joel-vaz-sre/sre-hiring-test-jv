@@ -47,3 +47,13 @@ jobs:
       - name: Terraform Apply
         if: github.ref == 'refs/heads/master' && github.event_name == 'push'
         run: terraform apply -auto-approve -input=false
+
+      - name: Cloud Formation Template File Bucket Update
+        if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+        shell: bash
+        run: |
+          echo "Copying cloud formation template file into s3 bucket"
+          cd .. 
+          cd iac-framework/cloudFormation/IAM-Role/
+          mv template.yml (date +%Y%m%d%H%M)_template.yml
+          aws s3 cp (date +%Y%m%d%H%M)_template.yml s3://${{ secret.S3_CLOUDFORMATION }}
