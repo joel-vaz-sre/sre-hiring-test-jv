@@ -62,9 +62,9 @@ Resources:
                   - !Sub 'arn:${AWS::Partition}:lambda:*:${AWS::AccountId}:*'
               - Effect: Allow
                 Action:
-                - 'api:*'
+                - 'apigateway:*'
                 Resource:
-                  - !Sub 'arn:${AWS::Partition}:api:*:${AWS::AccountId}:*'
+                  - !Sub 'arn:${AWS::Partition}:apigateway:*:${AWS::AccountId}:*'
               - Effect: Allow
                 Action:
                 - 'ecr:*'
