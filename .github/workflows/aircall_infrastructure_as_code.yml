@@ -66,3 +66,5 @@ jobs:
         with:
           name: IAM-Role-Github
           template: https://aircall-cloud-formation-bucket.s3.amazonaws.com/githubRole.yml
+          parameter-overrides:
+            capabilities=CAPABILITY_IAM
