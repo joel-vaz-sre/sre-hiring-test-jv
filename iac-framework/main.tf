@@ -58,11 +58,11 @@ resource "aws_s3_bucket" "cloud_formation_bucket" {
     Environment = "Dev"
     Purpose     = "image_resize"
   }
-  acl    = "public-read"
+  acl = "public-read"
 }
 
 resource "aws_s3_bucket_versioning" "cloud_formation_versioning" {
-  bucket = aws_s3_bucket.cloudFormation_bucket.id
+  bucket = aws_s3_bucket.cloud_formation_bucket.id
   versioning_configuration {
     status = "Enabled"
   }
