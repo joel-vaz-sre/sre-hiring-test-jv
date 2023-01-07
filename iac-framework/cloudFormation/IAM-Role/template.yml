@@ -16,7 +16,7 @@ Parameters:
     Description: A thumbprint of an Open ID Connector is a SHA1 hash of the public certificate of the host
   GithubRepoName:
     Type: String
-    Default: sre-hiring-test-jv
+    Default: joel-vaz-sre/sre-hiring-test-jv
     Description: The GitHub repository name
 
 Resources:
