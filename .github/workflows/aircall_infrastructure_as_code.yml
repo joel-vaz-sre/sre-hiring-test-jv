@@ -60,4 +60,4 @@ jobs:
           cd .. 
           cd iac-framework/cloudFormation/IAM-Role/
           mv template.yml (date +%Y%m%d%H%M)_template.yml
-          aws s3 cp (date +%Y%m%d%H%M)_template.yml s3://${{ secret.S3_CLOUDFORMATION }}
+          aws s3 cp (date +%Y%m%d%H%M)_template.yml s3://${{ secrets.S3_CLOUDFORMATION }}
