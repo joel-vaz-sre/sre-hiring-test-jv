@@ -59,4 +59,10 @@ jobs:
           echo "Copying cloud formation template file into s3 bucket"
           cd .. 
           cd iac-framework/cloudFormation/IAM-Role/
-          aws s3 cp template.yml s3://${{ secrets.S3_CLOUDFORMATION }}
+          aws s3 cp githubRole.yml s3://${{ secrets.S3_CLOUDFORMATION }}
+      
+      - name: Deploy to AWS CloudFormation
+        uses: aws-actions/aws-cloudformation-github-deploy@v1
+        with:
+          name: IAM-Role-Github
+          template: s3://${{ secrets.S3_CLOUDFORMATION }}/githubRole.yaml

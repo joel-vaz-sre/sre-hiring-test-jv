@@ -89,6 +89,16 @@ Resources:
                 - 'dynamodb:*'
                 Resource:
                   -'*'
+              - Effect: "Allow"
+                Action:
+                - "cloudformation:CreateStack"
+                - "cloudformation:DescribeStacks"
+                - "cloudformation:CreateChangeSet"
+                - "cloudformation:DescribeChangeSet"
+                - "cloudformation:DeleteChangeSet"
+                - "cloudformation:ExecuteChangeSet"
+                Resource: 
+                  - "*"
 
 Outputs:
   GithubIAMRoleArn:
