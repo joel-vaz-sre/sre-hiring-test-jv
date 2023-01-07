@@ -8,12 +8,16 @@ on:
 
 env:
   AWS_REGION : "us-east-1"
+  TF_WORK_DIR : "iac-framework/"
 permissions:
   id-token: write
   contents: read
 
 jobs:
   terraform:
+    defaults:
+      run:
+        working-directory: ${{ env.TF_WORK_DIR }}
     name: "Terraform"
     runs-on: ubuntu-latest
     steps:

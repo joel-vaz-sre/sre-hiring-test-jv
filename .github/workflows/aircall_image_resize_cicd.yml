@@ -59,7 +59,7 @@ jobs:
       shell: bash
       run: |
         echo "Deployment Stage"
-        cd ..
+        pwd
         sh cicd/docker.sh ${{ secrets.AWS_ID }} ${AWS_REGION} ${env.APPLICATION_NAME}
       env:
           AWS_ID: ${{ secrets.AWS_ID }}
