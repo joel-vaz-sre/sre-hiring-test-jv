@@ -57,13 +57,11 @@ jobs:
         shell: bash
         run: |
           echo "Copying cloud formation template file into s3 bucket"
-          cd .. 
-          cd iac-framework/cloudFormation/IAM-Role/
-          aws s3 cp githubRole.yml s3://${{ secrets.S3_CLOUDFORMATION }}
+          aws s3 cp iac-framework/cloudFormation/IAM-Role/githubRole.yml s3://${{ secrets.S3_CLOUDFORMATION }}
       
       - name: Deploy to AWS CloudFormation
         if: github.ref == 'refs/heads/master' && github.event_name == 'push'
         shell: bash
         run: |
           echo "Applying cloud formation"
-          aws cloudformation deploy --template-file githubRole.yml --stack-name github-role-setup --capabilities CAPABILITY_IAM
+          aws cloudformation deploy --template-file iac-framework/IAM-Role/githubRole.yml --stack-name github-role-setup --capabilities CAPABILITY_IAM
