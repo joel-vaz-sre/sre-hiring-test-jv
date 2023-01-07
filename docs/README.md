@@ -7,6 +7,18 @@ Bellow is a diagram of the solution for the given problem:
 
 ![Infrastructure Diagram](diagrams/infrastructure.png "Infrastructure Diagram")
 
+## Provided
+
+1. CICD basic workflow for development teams.
+2. Infrastructure as code basic workflow for provisioning cloud infrastructure
+   1. Using OpenIDC authentication;
+3. CICD scripts for local testing of resources;
+4. Documentation of the solution, print screen and diagram;
+5. Infrastructure as code directory with AWS infrastructure provisioning;
+   1. Terraform for most of the landing zone;
+   2. Cloud formation for IAM role for the OpenIDC (it was much easier to use cloud formation for this specific case although I never used it before);
+6. Basic Dockerfile of the solution (No testing or image sizing considerations).
+
 ## How to run
 
 Endpoint: https://x6e08g4sx2.execute-api.us-east-1.amazonaws.com/resize/image

@@ -67,7 +67,20 @@ Resources:
                   - !Sub 'arn:${AWS::Partition}:apigateway:*:${AWS::AccountId}:*'
               - Effect: Allow
                 Action:
-                - 'ecr:*'
+                  - "ecr:DescribeImageReplicationStatus"
+                  - "ecr:ListTagsForResource"
+                  - "ecr:UploadLayerPart"
+                  - "ecr:ListImages"
+                  - "ecr:CompleteLayerUpload"
+                  - "ecr:TagResource"
+                  - "ecr:ReplicateImage"
+                  - "ecr:Describe*"
+                  - "ecr:PutImageScanningConfiguration"
+                  - "ecr:DeleteLifecyclePolicy"
+                  - "ecr:Put*"
+                  - "ecr:UntagResource"
+                  - "ecr:InitiateLayerUpload"
+                  - "ecr:Get*"
                 Resource:
                   - !Sub 'arn:${AWS::Partition}:ecr:*:${AWS::AccountId}:*'
               - Effect: Allow
