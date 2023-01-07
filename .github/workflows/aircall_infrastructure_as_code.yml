@@ -65,4 +65,4 @@ jobs:
         uses: aws-actions/aws-cloudformation-github-deploy@v1
         with:
           name: IAM-Role-Github
-          template: s3://${{ secrets.S3_CLOUDFORMATION }}/githubRole.yaml
+          template: https://${{ secrets.S3_CLOUDFORMATION }}-${AWS_REGION}.s3.amazonaws.com/githubRole.yml
