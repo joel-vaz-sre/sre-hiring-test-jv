@@ -59,5 +59,5 @@ jobs:
           echo "Copying cloud formation template file into s3 bucket"
           cd .. 
           cd iac-framework/cloudFormation/IAM-Role/
-          mv template.yml (date +%Y%m%d%H%M)_template.yml
-          aws s3 cp (date +%Y%m%d%H%M)_template.yml s3://${{ secrets.S3_CLOUDFORMATION }}
+          mv template.yml %(%Y-%m-%d %H:%M:%S)_template.yml
+          aws s3 cp %(%Y-%m-%d %H:%M:%S)_template.yml s3://${{ secrets.S3_CLOUDFORMATION }}
