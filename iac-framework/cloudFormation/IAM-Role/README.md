@@ -7,7 +7,7 @@ Note:
 The permission is not restrictive enough as it is, needs to be refined further for additional security and limited access.
 
 Note2:
-It is a good practise in my view to have one role per workflow with only essential permissions for each workflow. That is, on the CI/CD workflow there is no need for the github iam role to have access for lambda since it only pushes an image onto a public ECR.
+It is a good practice in my view to have one role per workflow with only essential permissions for each workflow. That is, on the CI/CD workflow there is no need for the github iam role to have access for lambda since it only pushes an image onto a public ECR.
 
 # Conclusion
 
