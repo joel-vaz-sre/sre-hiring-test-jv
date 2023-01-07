@@ -6,6 +6,13 @@ on:
   pull_request:
     branches: [ master ]
 
+env:
+  AWS_REGION : "us-east-1"
+  APPLICATION_NAME : "aircall-ecr-lambda"
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
 
   build:
@@ -39,21 +46,18 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: Configure AWS Credentials
+    - name: configure aws credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: us-east-1
-        role-to-assume: arn:aws:iam::${{ secrets.AWS_ID }}:role/${{ secrets.AWS_GH_USER }}
+        role-to-assume: ${{ secrets.AWS_GH_USER }}
+        role-session-name: gh-env-deployment
+        aws-region: ${{ env.AWS_REGION }}
 
     - name: Continuos Delivery
       shell: bash
       run: |
         echo "Deployment Stage"
         cd ..
-        sh cicd/docker.sh ${AWS_ID} ${REGION} ${APPLICATION_NAME}
+        sh cicd/docker.sh ${{ secrets.AWS_ID }} ${AWS_REGION} ${env.APPLICATION_NAME}
       env:
           AWS_ID: ${{ secrets.AWS_ID }}
-          REGION: us-east-1
-          APPLICATION_NAME: aircall-ecr-lambda

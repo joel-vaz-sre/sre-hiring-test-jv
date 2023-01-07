@@ -50,5 +50,6 @@ Technically speaking, we need to get:
 - tracing (CloudWatch - example in docs/printscreens)
 - deployment framework (.github via github actions and cicd folder, landing zone created via terraform on automated pipeline)
 - CI/CD (.github via github actions)
-- auth (github uses a iam role for programmatic limited access, no auth was provided for the API endpoints, https://github.com/aws-actions/configure-aws-credentials )
+- auth (github uses a iam role for programmatic limited access, no auth was provided for the API endpoints, https://github.com/aws-actions/configure-aws-credentials - https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/configuring-openid-connect-in-amazon-web-services )
+
 Good luck !

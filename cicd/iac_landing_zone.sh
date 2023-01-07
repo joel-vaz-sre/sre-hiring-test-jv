@@ -5,5 +5,5 @@
 ####
 
 terraform init
-terraform plan -out tfplan .
+terraform plan -no-color -input=false -out tfplan .
 terraform apply -auto-approve tfplan

@@ -1,0 +1,77 @@
+---
+AWSTemplateFormatVersion: 2010-09-09
+Description: 'Cloudformation for provisioning IAM role for github actions OpenIDC.'
+Metadata:
+  AWS::CloudFormation::Interface:
+    ParameterGroups:
+      - Label:
+          default: "Github configurations"
+        Parameters:
+          - GithubRepoName
+          - ThumbprintList   
+Parameters:
+  ThumbprintList:
+    Type: String 
+    Default: 6938fd4d98bab03faadb97b34396831e3780aea1
+    Description: A thumbprint of an Open ID Connector is a SHA1 hash of the public certificate of the host
+  GithubRepoName:
+    Type: String
+    Default: sre-hiring-test-jv
+    Description: The GitHub repository name
+
+Resources:
+  IDCProvider:
+      Type: AWS::IAM::OIDCProvider
+      Properties:
+          Url: "https://token.actions.githubusercontent.com"
+          ClientIdList:
+            - "sts.amazonaws.com"
+          ThumbprintList:
+            - !Ref ThumbprintList 
+  GitHubIAMRole:
+      Type: AWS::IAM::Role
+      Properties:
+          Path: "/"
+          RoleName: AWS_GH_USER
+          AssumeRolePolicyDocument:
+            Statement:
+              - Effect: Allow
+                Action: sts:AssumeRoleWithWebIdentity
+                Principal:
+                  Federated: !Ref IDCProvider
+                Condition:
+                  StringLike:
+                    token.actions.githubusercontent.com:sub: !Sub repo:${GithubRepoName}:*
+          MaxSessionDuration: 3600
+          Description: "Github Actions role"
+          Policies:
+          
+          - PolicyName: 'AWS_GH_USER-policy'
+            PolicyDocument:
+              Version: '2012-10-17'
+              Statement:
+              - Effect: Allow
+                Action:
+                - 's3:*'
+                Resource:
+                  - !Sub 'arn:${AWS::Partition}:s3:::*'
+              - Effect: Allow
+                Action:
+                - 'lambda:*'
+                Resource:
+                  - !Sub 'arn:${AWS::Partition}:lambda:*:${AWS::AccountId}:*'
+              - Effect: Allow
+                Action:
+                - 'api:*'
+                Resource:
+                  - !Sub 'arn:${AWS::Partition}:api:*:${AWS::AccountId}:*'
+              - Effect: Allow
+                Action:
+                - 'ecr:*'
+                Resource:
+                  - !Sub 'arn:${AWS::Partition}:ecr:*:${AWS::AccountId}:*' 
+
+Outputs:
+  GithubIAMRoleArn:
+    Description: IAM role for GitHub
+    Value: !GetAtt GitHubIAMRole.Arn
