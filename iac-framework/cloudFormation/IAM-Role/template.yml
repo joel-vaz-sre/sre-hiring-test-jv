@@ -72,9 +72,10 @@ Resources:
                   - !Sub 'arn:${AWS::Partition}:ecr:*:${AWS::AccountId}:*'
               - Effect: Allow
                 Action:
+                - 'iam:*'
                 - 'dynamodb:*'
                 Resource:
-                  - !Sub 'arn:${AWS::Partition}:dynamodb:*:${AWS::AccountId}:*'
+                  -'*'
 
 Outputs:
   GithubIAMRoleArn:
