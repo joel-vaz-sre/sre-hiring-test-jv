@@ -11,3 +11,4 @@ Github actions for the Aircall challenge.
 # AWS Authentication
 
 Github actions were authenticated to access AWS resources via a temporary access role with limited access and authenticated using OpenIDC.
+https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/configuring-openid-connect-in-amazon-web-services
